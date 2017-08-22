@@ -76,6 +76,7 @@ I also experimented with the parameters in the table below.  From it, I decided 
 
 
 **Training The Model**
+
 After choosing which parameters to use, the Support Vector Machine (SVM) linear training was implemented using spatially binned color, and historgram of colors as features.
 
 First, all the features were extracted of the vehicle and non-vehicles from the given images in cells 9 to 13. 
@@ -89,10 +90,15 @@ The accuracy obtained by the `LinearSVC` was 99.17%.
 ## Sliding Window Search
 
 **Implementation**
-The sliding window search functionality is in cells 19 to 25.  The main Sliding Windows Search function is `find_cars`, other functions work as helper or to displays the user information related to the images or the implemented model.  The `find_cars` function takes up to five parameters; however, only the `img` and `sacle_windows` parameters are needed to use the function.  The other three parameters have defaults values that can be change by the users as needed.
+The sliding window search functionality is in cells 19 to 25.  The main Sliding Windows Search function is `find_cars`, other functions work as helper to it or to displays the user information related to the images or the implemented model.  An example of a Sliding Window Search and its  grid is shown below. The `find_cars` function takes up to five parameters; however, only the `img` and `sacle_windows` parameters are needed to use the function.  The other three parameters have defaults values that can be change by the users as needed.
+
+![img_with_grid]
 
 The `find_cars` function takes in an image in the BGR format, which is crops to the specify dimensions, converted to `YCrCb` color space, and later scale by a the specify factor. After this initial preparation is completed, the function carryout the following sequence of process HOG, Spatial Features, Color Histogram Features, and Hot Features.  All these features are then concatenated to generate and output a `heatmap`.
 
+I also experimented with overlapping widows in the exploration phase, see image below.  However, it was not implemented later in the pipeline.
+
+![windows_overlap]
 
 **Optimization**
 
@@ -137,5 +143,12 @@ The [out video] is a combination of the lane and vehicle detection project.
 
   
 
-### Credits
+### Resources and Credits
 Most of the code used for this project came out of [Frank Kanis](https://github.com/frankkanis/CarND-Vehicle-Detection) project.  I included and make some code changes to the original code from F. Kanis.
+
+* Labeled data provided by Udacity: 
+   * [Vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip)
+   * [Non-Vehicles](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip)
+* Project specification: [Udacity Rubrics](https://review.udacity.com/#!/rubrics/513/view)
+* Udacity repository: [CarND-Vehicle-Detection](https://github.com/udacity/CarND-Vehicle-Detection)
+
