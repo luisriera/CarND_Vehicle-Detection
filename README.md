@@ -18,26 +18,33 @@ The goals for this project as set by the Udacity team are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[Vehicle_imgs]: ./writeup_imgs/Vehicle_imgs.png
-[Non-Vehicle_imgs]: ./writeup_imgs/Non-Vehicle_imgs.png
-[HOG_Vehicle]: ./writeup_imgs/HOG_Vehicle.png
-[HOG_Non-Vehicle]: ./writeup_imgs/HOG_Non-Vehicle.png
-[img_with_grid]: ./writeup_imgs/img_with_grid.png
-[windows_overlap]: ./writeup_imgs/windows_overlap.png
-[heatmap]: ./writeup_imgs/heatmap.png
-[out_project_video.mp4]: ./videos/out_project_video.mp4.mp4
+[Vehicle_imgs]: ./writeup_img/Vehicle_imgs.png
+[Non-Vehicle_imgs]: ./writeup_img/Non-Vehicle_imgs.png
+[HOG_Vehicle]: ./writeup_img/HOG_Vehicle.png
+[HOG_Non-Vehicle]: ./writeup_img/HOG_Non-Vehicle.png
+[img_with_grid]: ./writeup_img/img_with_grid.png
+[windows_overlap]: ./writeup_img/windows_overlap.png
+[heatmap]: ./writeup_img/heatmap.png
+[out video]: ./videos/out_project_video.mp4
+[anmated_boxes]: ./videos/anmated_boxes.gif
+
+
 
 
 ---
 
 I started the project by exploring and displaying few random `vehicle` and `non-vehicle` images, as show below.
 
+**Vehicles**
+
 ![Vehicle_imgs]
 
 
+**Non-Vehicles**
+
 ![Non-Vehicle_imgs]
 
-##Histogram of Oriented Gradients (HOG)
+## Histogram of Oriented Gradients (HOG)
 
 
 
@@ -45,12 +52,13 @@ The code used to extract the HOG features from training data can be seen in cell
 
 
 During the process, I explored different color channels by gathering random images from the Vehicle and Non-Vehicle classes as shown below.
-
+**Vehicles**
 ![HOG_Vehicle]
 
+**Non-Vehicles**
 ![HOG_Non-Vehicle]
 
-I also experimented with the parameters in the table below.  From it, I decided to use the parameters in row 9 for the following runs as the accuracy is one of the best.
+I also experimented with the parameters in the table below.  From it, I decided to use the parameters shown in row 9 for the subsequent operates as it has one of the best accuracy but still have a smaller Feature Size.
  
  |Id|Color|Spatial|Bins|Orient|Pixels/Cell|Cells/Block|Feature Size|Training Time|Accuracy|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -67,7 +75,7 @@ I also experimented with the parameters in the table below.  From it, I decided 
 |11|YCrCb|(64, 64)|32|9|(8, 8)|(2, 2)|17676|204.76s|99.32%|
 
 
-
+**Training The Model**
 After choosing which parameters to use, the Support Vector Machine (SVM) linear training was implemented using spatially binned color, and historgram of colors as features.
 
 First, all the features were extracted of the vehicle and non-vehicles from the given images in cells 9 to 13. 
@@ -78,7 +86,7 @@ The accuracy obtained by the `LinearSVC` was 99.17%.
 
 
 ---
-##Sliding Window Search
+## Sliding Window Search
 
 **Implementation**
 The sliding window search functionality is in cells 19 to 25.  The main Sliding Windows Search function is `find_cars`, other functions work as helper or to displays the user information related to the images or the implemented model.  The `find_cars` function takes up to five parameters; however, only the `img` and `sacle_windows` parameters are needed to use the function.  The other three parameters have defaults values that can be change by the users as needed.
@@ -87,6 +95,7 @@ The `find_cars` function takes in an image in the BGR format, which is crops to 
 
 
 **Optimization**
+
 * The Vehicle search was limited to the part of the image where there were most likely to appear in the images. 
 * Three different windows scale search were used in the pipeline aiming to detect images of the different size and on the different location.
 * Small scale search windows were conducted in the middle of the image, where vehicles tend to be far in the horizontal and therefore small.
@@ -94,6 +103,7 @@ The `find_cars` function takes in an image in the BGR format, which is crops to 
 
 
 **Examples of test images**
+
 Ultimately I searched on three scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector.  
 
 In the following sequence of images, it can be appreciated the resulting output of the implemented pipeline.  
@@ -106,33 +116,15 @@ In the following sequence of images, it can be appreciated the resulting output 
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+![anmated_boxes]
 
-
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
-
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
+The [out video] is a combination of the lane and vehicle detection project.
 
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 * I have explored the Udacity ` object-dataset.tar` images, but decided not to use them mainly because lack of time to generate a set of Vehicle and set of Non-Vehicles of similar number of samples in each of them.  However, I believe it should have been very handy for the augmentation of the data.
 
@@ -142,4 +134,4 @@ Here's an example result showing the heatmap from a series of frames of video, t
   
 
 ### Credits
-Most of the code used for this project came out of Frank Kanis project in https://github.com/frankkanis/CarND-Vehicle-Detection.  I included and make some code changes to the original code from F. Kanis.
+Most of the code used for this project came out of [Frank Kanis](https://github.com/frankkanis/CarND-Vehicle-Detection) project.  I included and make some code changes to the original code from F. Kanis.
