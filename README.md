@@ -118,6 +118,10 @@ In the following sequence of images, it can be appreciated the resulting output 
 
 ![animated_boxes]
 
+
+On the Video Implementation a Sliding Window technique was applyed to each frame of the video setting the heatmap perdiction value to True.  To increase the increase the posibility of detection, a three size of widnows was used.  However, there were many false positives predictions in my implementation.  I believe that this issue can be addressed by increasing the number of frames in the threshold.
+
+
 The [out video] is a combination of the lane and vehicle detection project.
 
 
