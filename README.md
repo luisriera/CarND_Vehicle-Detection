@@ -26,7 +26,7 @@ The goals for this project as set by the Udacity team are the following:
 [windows_overlap]: ./writeup_img/windows_overlap.png
 [heatmap]: ./writeup_img/heatmap.png
 [out video]: ./videos/out_project_video.mp4
-[anmated_boxes]: ./videos/anmated_boxes.gif
+[animated_boxes]: ./videos/animated_boxes.gif
 
 
 
@@ -116,7 +116,7 @@ In the following sequence of images, it can be appreciated the resulting output 
 
 ### Video Implementation
 
-![anmated_boxes]
+![animated_boxes]
 
 The [out video] is a combination of the lane and vehicle detection project.
 
